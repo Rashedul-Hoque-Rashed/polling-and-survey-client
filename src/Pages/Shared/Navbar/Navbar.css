@@ -1,0 +1,22 @@
+#nav-link a.active{
+    color: #94A684;
+    font-size: large;
+    font-weight: 700;
+    margin-right: 16px;
+    text-decoration: underline;
+}
+
+#nav-link a{
+    color: black;
+    font-size: medium;
+    font-weight: 600;
+    margin-right: 16px;
+    text-decoration: none;
+}
+
+@media only screen and (max-width: 600px) {
+    #nav-link a{
+      display: block;
+      margin-bottom: 8px;
+    }
+  }
