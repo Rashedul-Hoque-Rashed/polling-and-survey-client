@@ -7,6 +7,7 @@ import 'swiper/css/navigation';
 import { Rating } from '@smastrom/react-rating'
 import '@smastrom/react-rating/style.css'
 import { BsQuote } from 'react-icons/bs';
+import './Testimonials.css'
 
 const Testimonials = () => {
 
@@ -72,9 +73,9 @@ const Testimonials = () => {
                             value={review.rating}
                             readOnly
                         />
-                        <BsQuote style={{width: '96px', height: '96px', marginBottom: '40px'}}  />
-                        <p style={{fontSize: '20px', fontWeight: 400, lineHeight: '36px', marginBottom: '8px', padding: '0 144px'}}>{review.testimonial}</p>
-                        <h4 style={{fontSize: '24px', fontWeight: 700, color: '#016A70'}}>{review.name}</h4>
+                        <BsQuote className="review-icon"  />
+                        <p className="review">{review.testimonial}</p>
+                        <h4 className="name">{review.name}</h4>
                     </SwiperSlide>)
                 }
             </Swiper>

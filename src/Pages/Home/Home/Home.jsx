@@ -1,4 +1,5 @@
 import Banner from "../Banner/Banner";
+import FAQ from "../FAQ/FAQ";
 import FeaturedSurveys from "../FeaturedSurveys/FeaturedSurveys";
 import HowItWork from "../HowItWork/HowItWork";
 import LatestSurveys from "../LatestSurveys/LatestSurveys";
@@ -13,6 +14,7 @@ const Home = () => {
             <LatestSurveys/>
             <HowItWork/>
             <Testimonials/>
+            <FAQ/>
         </div>
     );
 };
