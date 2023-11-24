@@ -2,14 +2,14 @@ import { Container } from "@mui/material";
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import img from '../../../assets/FAQs-amico.png'
-import './FAQ.css'
+import './FrequentlyAskedQuestions.css'
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 
-const FAQ = () => {
+const FrequentlyAskedQuestions = () => {
 
 
     const faqs = [
@@ -68,7 +68,7 @@ const FAQ = () => {
                                 aria-controls="panel1a-content"
                                 id="panel1a-header"
                             >
-                                <Typography fontSize={'20px'} sx={{fontWeight: 600}}>{faq.question}</Typography>
+                                <Typography fontSize={'20px'} sx={{fontWeight: 600, my: 1}}>{faq.question}</Typography>
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Typography color='text.secondary'>
@@ -83,4 +83,4 @@ const FAQ = () => {
     );
 };
 
-export default FAQ;
+export default FrequentlyAskedQuestions;

@@ -1,6 +1,6 @@
 import Banner from "../Banner/Banner";
-import FAQ from "../FAQ/FAQ";
 import FeaturedSurveys from "../FeaturedSurveys/FeaturedSurveys";
+import FrequentlyAskedQuestions from "../FrequentlyAskedQuestions/FrequentlyAskedQuestions";
 import HowItWork from "../HowItWork/HowItWork";
 import LatestSurveys from "../LatestSurveys/LatestSurveys";
 import Testimonials from "../Testimonials/Testimonials";
@@ -14,7 +14,7 @@ const Home = () => {
             <LatestSurveys/>
             <HowItWork/>
             <Testimonials/>
-            <FAQ/>
+            <FrequentlyAskedQuestions/>
         </div>
     );
 };
