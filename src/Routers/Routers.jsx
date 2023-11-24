@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layouts/Main";
 import Home from "../Pages/Home/Home/Home";
+import Survey from "../Pages/Survey/Survey";
 
 
 const router = createBrowserRouter([
@@ -11,7 +12,11 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home />
-            }
+            },
+            {
+                path: '/survey',
+                element: <Survey />
+            },
         ]
     },
 ]);

@@ -25,9 +25,9 @@ const navItems = <div id='nav-link'>
         Home
     </NavLink>
     <NavLink
-        to="/about"
+        to="/survey"
     >
-        About
+        Survey
     </NavLink>
 </div>
 
