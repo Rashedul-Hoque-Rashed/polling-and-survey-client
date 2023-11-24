@@ -158,7 +158,7 @@ const FeaturedSurveys = () => {
     const sortSurvey = surveyData.sort((a, b) => (b.options.yes + b.options.no) - (a.options.yes + a.options.no));
 
     return (
-        <Container maxWidth='xl' sx={{ py: 10 }}>
+        <Container maxWidth='xl' sx={{ py: 12 }}>
             <Typography fontSize={{ xs: 20, sm: 36 }} sx={{ textAlign: 'center', fontWeight: 700 }}>
                 Featured Surveys
             </Typography>

@@ -160,7 +160,7 @@ const Survey = () => {
 
     return (
         <Container maxWidth='xl'>
-            <Grid container spacing={6} sx={{ pb: 10 }}>
+            <Grid container spacing={6} sx={{ pt: 5, pb: 10 }}>
                 {
                     surveyData.map(item => <Grid key={item.title} item xs={12} sm={6} lg={4}>
                         <Card sx={{ minWidth: 275, cursor: 'pointer' }}>

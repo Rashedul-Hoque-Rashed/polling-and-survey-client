@@ -160,7 +160,7 @@ const LatestSurveys = () => {
     console.log(sortSurvey)
 
     return (
-        <Container maxWidth='xl' sx={{ py: 10 }}>
+        <Container maxWidth='xl' sx={{ pb: 12 }}>
             <Typography fontSize={{ xs: 20, sm: 36 }} sx={{ textAlign: 'center', fontWeight: 700 }}>
                 Latest Surveys
             </Typography>
