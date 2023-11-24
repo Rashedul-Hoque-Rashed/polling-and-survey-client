@@ -22,7 +22,7 @@ const HowItWork = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Grid sx={{mb: '12px'}}>
-                        <Typography variant="h6" component="div" sx={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Typography variant="h6" component="div" sx={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px', color: '#016A70' }}>
                             <RiGuideFill className="icon" />
                             Step-by-Step Guide
                         </Typography>
@@ -31,7 +31,7 @@ const HowItWork = () => {
                         </Typography>
                     </Grid>
                     <Grid sx={{mb: '12px'}}>
-                        <Typography variant="h6" component="div" sx={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Typography variant="h6" component="div" sx={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px', color: '#016A70' }}>
                             <FaRegQuestionCircle className="icon" />
                             Answering Questions
                         </Typography>
@@ -40,7 +40,7 @@ const HowItWork = () => {
                         </Typography>
                     </Grid>
                     <Grid sx={{mb: '12px'}}>
-                        <Typography variant="h6" component="div" sx={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Typography variant="h6" component="div" sx={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px', color: '#016A70' }}>
                             <MdOutlinePrivacyTip className="icon" />
                             Privacy and Data Security
                         </Typography>
@@ -49,7 +49,7 @@ const HowItWork = () => {
                         </Typography>
                     </Grid>
                     <Grid sx={{mb: '12px'}}>
-                        <Typography variant="h6" component="div" sx={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Typography variant="h6" component="div" sx={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px', color: '#016A70' }}>
                             <MdAvTimer  className="icon" />
                             Time Commitment
                         </Typography>
@@ -58,7 +58,7 @@ const HowItWork = () => {
                         </Typography>
                     </Grid>
                     <Grid sx={{mb: '12px'}}>
-                        <Typography variant="h6" component="div" sx={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Typography variant="h6" component="div" sx={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px', color: '#016A70' }}>
                             <MdOutlineSupportAgent className="icon" />
                             Support and Assistance
                         </Typography>
@@ -67,7 +67,7 @@ const HowItWork = () => {
                         </Typography>
                     </Grid>
                     <Grid sx={{mb: '12px'}}>
-                        <Typography variant="h6" component="div" sx={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <Typography variant="h6" component="div" sx={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px', color: '#016A70' }}>
                             <MdCallToAction className="icon" />
                             Call to Action
                         </Typography>
