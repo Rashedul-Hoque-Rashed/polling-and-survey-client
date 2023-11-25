@@ -34,7 +34,7 @@ const Testimonials = () => {
             </Typography>
             <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
                 {
-                    reviews.map(review => <SwiperSlide key={review.name} style={{textAlign: 'center'}}>
+                    reviews.map(review => <SwiperSlide key={review._id} style={{textAlign: 'center'}}>
                         <Rating
                             style={{ maxWidth: 180, margin: '0 auto' }}
                             value={review.rating}
