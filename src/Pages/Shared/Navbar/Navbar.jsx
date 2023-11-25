@@ -29,6 +29,11 @@ const navItems = <div id='nav-link'>
     >
         Survey
     </NavLink>
+    <NavLink
+        to="/proUser"
+    >
+        Pro-User
+    </NavLink>
 </div>
 
 
