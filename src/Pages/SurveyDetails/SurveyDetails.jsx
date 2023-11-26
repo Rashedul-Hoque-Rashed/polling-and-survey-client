@@ -1,9 +1,23 @@
-import { Button, Card, CardActions, CardContent, Container, Grid, TextField, Typography } from "@mui/material";
+import { Button, Card, CardActions, CardContent, Container, Grid, Modal, TextField, Typography } from "@mui/material";
 import { useLoaderData } from "react-router-dom";
 import Box from '@mui/joy/Box';
 import Checkbox from '@mui/joy/Checkbox';
 import { useState } from "react";
 import './SurveyDetails.css'
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '50%',
+    bgcolor: 'white',
+    boxShadow: 24,
+    p: 4,
+};
 
 
 const SurveyDetails = () => {
@@ -21,18 +35,35 @@ const SurveyDetails = () => {
     const [selectedValue, setSelectedValue] = useState('');
     const [likes, setLikes] = useState(like);
     const [dislikes, setDislikes] = useState(dislike);
+    const [userHasLike, setUserHasLike] = useState(false);
+    const [userHasDislike, setUserHasDislike] = useState(false);
     const [comments, setComments] = useState([]);
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     const handleChange = (event) => {
         setSelectedValue(event.target.value);
     };
 
     const handleLike = () => {
-        setLikes(likes + 1);
+        if (userHasLike) {
+            setLikes(likes - 1);
+          } else {
+            setLikes(likes + 1);
+          }
+      
+          setUserHasLike(!userHasLike);
     };
 
     const handleDislike = () => {
-        setDislikes(dislikes + 1);
+        if (userHasDislike) {
+            setDislikes(dislikes - 1);
+          } else {
+            setDislikes(dislikes + 1);
+          }
+      
+          setUserHasDislike(!userHasDislike);
     };
 
     const handleComment = (e) => {
@@ -43,6 +74,7 @@ const SurveyDetails = () => {
         form.reset()
     };
 
+    console.log(selectedValue)
 
     return (
         <Container maxWidth='xl' sx={{ py: 6 }}>
@@ -92,29 +124,46 @@ const SurveyDetails = () => {
                             </Box>
                         </Typography>
                     </Grid>
-                    <Grid container spacing={2} sx={{ mt: 1.5, justifyItems: 'start', alignItems: 'center' }}>
-                        <Grid item xs={2}>
-                            <Button onClick={handleLike} color="primary">
+                        <Grid sx={{mt: 1.5}}>
+                            <Button onClick={handleLike}
+                            sx={{ fontWeight: userHasLike ? 'bold' : 'normal', textTransform: 'none' }}
+                            color="primary"
+                            startIcon={<ThumbUpIcon />}
+                            >
                                 Like ({likes})
                             </Button>
-                            <Button onClick={handleDislike} color="secondary">
+                            <Button onClick={handleDislike}
+                            sx={{ fontWeight: userHasDislike ? 'bold' : 'normal', textTransform: 'none' }}
+                            color="error"
+                            startIcon={<ThumbDownIcon />}
+                            >
                                 Dislike ({dislikes})
                             </Button>
                         </Grid>
-                        <Grid item xs={10}>
-                            <form onSubmit={handleComment}>
-                                {/* <Input
-                                    name="comment"
-                                    placeholder="Add a comment..."
-                                /> */}
-                                 <TextField id="outlined-basic"
-                                 name="comment" label="Add a comment" variant="outlined" sx={{width: '70%'}}/>
-                                <Button className="cmd-btn" variant="contained" type="submit" sx={{px: '24px', py: '16px', borderRadius: '8px', color: 'white', backgroundColor: '#016A70', fontSize: '14px', fontWeight: 700, ml: 2}}>Comment</Button>
+                        <Grid sx={{mt: 1.5}}>
+                            <form className="comment-form" onSubmit={handleComment}>
+                                <TextField id="outlined-basic"
+                                    name="comment" label="Add a comment" variant="outlined" sx={{ width: '70%' }} />
+                                <button className="comment" type="submit">Comment</button>
                             </form>
                         </Grid>
-                    </Grid>
+                        <Button sx={{textTransform: 'none', textDecoration: 'underline', mb: 2}} onClick={handleOpen}>Report any problem</Button>
+                            <Modal
+                                open={open}
+                                onClose={handleClose}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                            >
+                                <Box sx={style}>
+                                    <form className="comment-form" onSubmit={handleComment}>
+                                        <TextField id="outlined-basic"
+                                            name="comment" label="Write your report" variant="outlined" sx={{ width: '70%' }} />
+                                        <button className="comment" type="submit">Report</button>
+                                    </form>
+                                </Box>
+                            </Modal>
                     <Grid>
-                        <Typography variant="subtitle1">Comments:</Typography>
+                        <Typography variant="subtitle1" sx={{fontSize: '16px', fontWeight: 700}}>All Comments:</Typography>
                         {comments.map((comment, index) => (
                             <Grid key={index}>{comment}</Grid>
                         ))}

@@ -1,0 +1,12 @@
+.err-msg{
+    text-align: start;
+    padding: 0 8px;
+    color: red;
+}
+
+.transactionId{
+    text-align: start;
+    padding: 0 8px;
+    color: gray;
+}
+

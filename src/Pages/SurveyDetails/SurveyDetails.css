@@ -1,3 +1,19 @@
-.cmd-btn:hover{
+.comment-form{
+    display: flex;
+}
+
+.comment {
+    padding: 18px 24px;
+    border-radius: 8px;
+    color: white;
+    background-color: #016A70;
+    font-size: 16px;
+    font-weight: 700;
+    margin-left: 10px;
+    border: none;
+    text-transform: uppercase;
+}
+
+.comment:hover {
     background-color: #02474b;
 }
