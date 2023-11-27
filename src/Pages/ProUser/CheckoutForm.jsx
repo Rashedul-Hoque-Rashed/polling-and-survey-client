@@ -1,6 +1,5 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import useAxios from "../../Hooks/useAxios";
 import { Button, Grid } from "@mui/material";
@@ -38,7 +37,6 @@ const CheckoutForm = ({ price, name }) => {
     const axios = useAxios();
     const stripe = useStripe();
     const elements = useElements();
-    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -107,9 +105,6 @@ const CheckoutForm = ({ price, name }) => {
                 }
                 const res = await axios.post('/payments', payment)
                 console.log(res.data)
-                if (res?.data?.paymentResult?.insertedId) {
-                    // navigate('/dashboard/paymentHistory')
-                }
 
             }
         }

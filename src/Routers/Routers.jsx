@@ -10,6 +10,7 @@ import Dashboard from "../Layouts/dashboard";
 import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
 import SurveyStatus from "../Pages/Dashboard/SurveyStatus/SurveyStatus";
 import AllPayments from "../Pages/Dashboard/AllPayments/AllPayments";
+import SurveyResponse from "../Pages/Dashboard/SurveyResponse/SurveyResponse";
 
 
 const router = createBrowserRouter([
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/allPayments',
                 element: <AllPayments/>
+            },
+            {
+                path: '/dashboard/surveyResponse',
+                element: <SurveyResponse/>
             },
         ]
     }

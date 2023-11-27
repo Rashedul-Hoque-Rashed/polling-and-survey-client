@@ -17,3 +17,8 @@
 .comment:hover {
     background-color: #02474b;
 }
+
+.comment:disabled {
+    background-color: gray;
+    color: white;
+}

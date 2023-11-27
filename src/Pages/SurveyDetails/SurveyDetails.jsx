@@ -1,11 +1,14 @@
 import { Button, Card, CardActions, CardContent, Container, Grid, Modal, TextField, Typography } from "@mui/material";
-import { useLoaderData } from "react-router-dom";
+import { Form, useLoaderData } from "react-router-dom";
 import Box from '@mui/joy/Box';
 import Checkbox from '@mui/joy/Checkbox';
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import './SurveyDetails.css'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import { AuthContext } from "../../Provider/AuthProvider";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 
 const style = {
@@ -21,6 +24,21 @@ const style = {
 
 
 const SurveyDetails = () => {
+
+    const { user } = useContext(AuthContext);
+    const axios = useAxiosPublic();
+    const [currentUser, setCurrentUser] = useState([]);
+
+    useEffect(()=>{
+        axios.get('/users')
+        .then(res => {
+            setCurrentUser(res.data)
+        })
+    },[axios])
+
+    const userRole = currentUser.find(role => role?.email === user?.email)
+
+    console.log(userRole)
 
     const survey = useLoaderData();
 
@@ -49,21 +67,21 @@ const SurveyDetails = () => {
     const handleLike = () => {
         if (userHasLike) {
             setLikes(likes - 1);
-          } else {
+        } else {
             setLikes(likes + 1);
-          }
-      
-          setUserHasLike(!userHasLike);
+        }
+
+        setUserHasLike(!userHasLike);
     };
 
     const handleDislike = () => {
         if (userHasDislike) {
             setDislikes(dislikes - 1);
-          } else {
+        } else {
             setDislikes(dislikes + 1);
-          }
-      
-          setUserHasDislike(!userHasDislike);
+        }
+
+        setUserHasDislike(!userHasDislike);
     };
 
     const handleComment = (e) => {
@@ -73,6 +91,38 @@ const SurveyDetails = () => {
         setComments([...comments, comment]);
         form.reset()
     };
+
+    const handleVote = async (e) => {
+        e.preventDefault();
+        const yes = e.target.yes.checked;
+        const no = e.target.no.checked;
+        const voteData = {
+            name: user.displayName,
+            email: user.email,
+            surveyId: survey._id,
+            vote: yes ? "yes" : "no",
+            time: new Date,
+        }
+
+        const vote = await axios.post('/votes', voteData)
+        if (vote.data.insertedId) {
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: `Your opinion added successfully.`,
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }else{
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: `Your opinion already added.`,
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
+    }
 
     console.log(selectedValue)
 
@@ -106,10 +156,11 @@ const SurveyDetails = () => {
                             Your opinion:
                         </Typography>
                         <Typography sx={{ fontSize: '16px', fontWeight: 600 }}>
-                            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
+                            <Form onSubmit={handleVote} style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                                 <Checkbox
                                     checked={selectedValue === 'yes'}
                                     label="Yes"
+                                    name="yes"
                                     color="success"
                                     onChange={handleChange}
                                     value="yes"
@@ -117,53 +168,57 @@ const SurveyDetails = () => {
                                 <Checkbox
                                     checked={selectedValue === 'no'}
                                     label="No"
+                                    name="no"
                                     color="danger"
                                     onChange={handleChange}
                                     value="no"
                                     slotProps={{ input: { 'aria-label': 'No' } }} />
-                            </Box>
+                                <Button type="submit" variant="contained">
+                                    submit
+                                </Button>
+                            </Form>
                         </Typography>
                     </Grid>
-                        <Grid sx={{mt: 1.5}}>
-                            <Button onClick={handleLike}
+                    <Grid sx={{ mt: 1.5 }}>
+                        <Button onClick={handleLike}
                             sx={{ fontWeight: userHasLike ? 'bold' : 'normal', textTransform: 'none' }}
                             color="primary"
                             startIcon={<ThumbUpIcon />}
-                            >
-                                Like ({likes})
-                            </Button>
-                            <Button onClick={handleDislike}
+                        >
+                            Like ({likes})
+                        </Button>
+                        <Button onClick={handleDislike}
                             sx={{ fontWeight: userHasDislike ? 'bold' : 'normal', textTransform: 'none' }}
                             color="error"
                             startIcon={<ThumbDownIcon />}
-                            >
-                                Dislike ({dislikes})
-                            </Button>
-                        </Grid>
-                        <Grid sx={{mt: 1.5}}>
+                        >
+                            Dislike ({dislikes})
+                        </Button>
+                    </Grid>
+                    <Grid sx={{ mt: 1.5 }}>
+                        <form className="comment-form" onSubmit={handleComment}>
+                            <TextField id="outlined-basic"
+                                name="comment" label="Add a comment" variant="outlined" sx={{ width: '70%' }} />
+                            <button disabled={userRole?.role === 'user' || userRole?.role === 'surveyor' || userRole?.role === 'admin'} className="comment" type="submit">Comment</button>
+                        </form>
+                    </Grid>
+                    <Button sx={{ textTransform: 'none', textDecoration: 'underline', mb: 2 }} onClick={handleOpen}>Report any problem</Button>
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
                             <form className="comment-form" onSubmit={handleComment}>
                                 <TextField id="outlined-basic"
-                                    name="comment" label="Add a comment" variant="outlined" sx={{ width: '70%' }} />
-                                <button className="comment" type="submit">Comment</button>
+                                    name="comment" label="Write your report" variant="outlined" sx={{ width: '70%' }} />
+                                <button className="comment" type="submit">Report</button>
                             </form>
-                        </Grid>
-                        <Button sx={{textTransform: 'none', textDecoration: 'underline', mb: 2}} onClick={handleOpen}>Report any problem</Button>
-                            <Modal
-                                open={open}
-                                onClose={handleClose}
-                                aria-labelledby="modal-modal-title"
-                                aria-describedby="modal-modal-description"
-                            >
-                                <Box sx={style}>
-                                    <form className="comment-form" onSubmit={handleComment}>
-                                        <TextField id="outlined-basic"
-                                            name="comment" label="Write your report" variant="outlined" sx={{ width: '70%' }} />
-                                        <button className="comment" type="submit">Report</button>
-                                    </form>
-                                </Box>
-                            </Modal>
+                        </Box>
+                    </Modal>
                     <Grid>
-                        <Typography variant="subtitle1" sx={{fontSize: '16px', fontWeight: 700}}>All Comments:</Typography>
+                        <Typography variant="subtitle1" sx={{ fontSize: '16px', fontWeight: 700 }}>All Comments:</Typography>
                         {comments.map((comment, index) => (
                             <Grid key={index}>{comment}</Grid>
                         ))}
