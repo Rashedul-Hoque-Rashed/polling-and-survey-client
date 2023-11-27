@@ -18,6 +18,7 @@ import { useContext } from "react";
 import GoogleIcon from '@mui/icons-material/Google';
 import { Chip, Divider } from "@mui/material";
 import styled from "@emotion/styled";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 
 const Root = styled('div')(({ theme }) => ({
@@ -31,6 +32,7 @@ const Root = styled('div')(({ theme }) => ({
 const Login = () => {
 
     const { login, googleLogin } = useContext(AuthContext);
+    const axios = useAxiosPublic();
     const location = useLocation();
     const Navigate = useNavigate();
 
@@ -62,26 +64,27 @@ const Login = () => {
             })
     }
 
-    const handelGoogle = () => {
+    const handleGoogleLogin = () => {
         googleLogin()
             .then(res => {
-                console.log(res.user);
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Login successful',
-                    showConfirmButton: false,
-                    timer: 2500
+                const userInfo = {
+                    name: res.user?.displayName,
+                    email: res.user?.email,
+                    role: 'user'
+                }
+                axios.post('/users', userInfo)
+                .then(res => {
+                    console.log(res.data)
                 })
-                Navigate(location?.state ? location.state : "/");
-            })
-            .catch(err => {
                 Swal.fire({
-                    icon: 'error',
-                    title: `${err.message}`,
+                    position: "center",
+                    icon: "success",
+                    title: "Login successfully",
                     showConfirmButton: false,
-                    timer: 2500
+                    timer: 1500
                 });
-            });
+                Navigate("/");
+            })
     }
 
     const defaultTheme = createTheme();
@@ -149,7 +152,7 @@ const Login = () => {
                         </Divider>
                     </Root>
                     <Button
-                    onClick={handelGoogle}
+                    onClick={handleGoogleLogin}
                         fullWidth
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}

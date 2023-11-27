@@ -17,12 +17,14 @@ import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { updateProfile } from "firebase/auth";
 import auth from "../../config/firebase.config";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 
 const Register = () => {
 
 
     const {createUser} = useContext(AuthContext);
+    const axios = useAxiosPublic();
 
     const Navigate = useNavigate();
 
@@ -52,15 +54,27 @@ const Register = () => {
                 updateProfile(auth.currentUser, {
                     displayName: `${name}`, photoURL: `${photo}`
                 })
-                console.log(res.user)
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Registration successful',
-                    showConfirmButton: false,
-                    timer: 2500
+                .then(() => {
+                    const userInfo = {
+                        name: name,
+                        email: email,
+                        role: 'user'
+                    }
+                    axios.post('/users', userInfo)
+                    .then(res => {
+                        if(res?.data?.insertedId){
+                            Swal.fire({
+                                position: "center",
+                                icon: "success",
+                                title: "Registration successfully",
+                                showConfirmButton: false,
+                                timer: 1500
+                              });
+                            Navigate("/");
+                        }
+                    })
                 })
-                Navigate('/')
-
+                console.log(res.user)
             })
             .catch(err => {
                 Swal.fire({

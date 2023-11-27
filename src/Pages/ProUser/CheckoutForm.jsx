@@ -1,12 +1,12 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useContext, useEffect, useState } from "react";
-import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import useAxios from "../../Hooks/useAxios";
 import { Button, Grid } from "@mui/material";
 import styled from "@emotion/styled";
 import PropTypes from 'prop-types';
+import './CheckoutForm.css';
 
 
 const PayButton = styled(Button)({
@@ -109,14 +109,7 @@ const CheckoutForm = ({ price, name }) => {
                 const res = await axios.post('/payments', payment)
                 console.log(res.data)
                 if (res?.data?.paymentResult?.insertedId) {
-                    Swal.fire({
-                        position: "center",
-                        icon: "success",
-                        title: "Thank you for this payment",
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                    navigate('/dashboard/paymentHistory')
+                    // navigate('/dashboard/paymentHistory')
                 }
 
             }
@@ -145,7 +138,7 @@ const CheckoutForm = ({ price, name }) => {
             />
             <p className="err-msg">{error}</p>
             {
-                transactionId && <p className="transactionId">Your transaction id: {transactionId}</p>
+                transactionId && <p className="transactionId">Payment successful(your transaction id: {transactionId})</p>
             }
             <Grid sx={{ textAlign: 'center' }}>
                 <PayButton type="submit"
