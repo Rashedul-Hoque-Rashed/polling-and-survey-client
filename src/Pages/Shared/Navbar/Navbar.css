@@ -1,4 +1,4 @@
-#nav-link a.active{
+#link a.active{
     color: #016A70;
     font-size: large;
     font-weight: 700;
@@ -6,7 +6,7 @@
     text-decoration: underline;
 }
 
-#nav-link a{
+#link a{
     color: black;
     font-size: medium;
     font-weight: 600;

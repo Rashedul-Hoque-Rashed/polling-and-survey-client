@@ -103,8 +103,7 @@ const CheckoutForm = ({ price, name }) => {
                     transactionId: paymentIntent.id,
                     price: price,
                     date: new Date(),
-                    subscriptionName: name,
-                    status: 'pending'
+                    subscriptionName: name
                 }
                 const res = await axios.post('/payments', payment)
                 console.log(res.data)

@@ -41,7 +41,7 @@ const LoginButton = styled(Button)({
 });
 
 
-const navItems = <div id='nav-link'>
+const navItems = <div id='link'>
     <NavLink
         to="/"
     >
@@ -56,6 +56,11 @@ const navItems = <div id='nav-link'>
         to="/proUser"
     >
         Pro-User
+    </NavLink>
+    <NavLink
+        to="/dashboard/manageUsers"
+    >
+        Dashboard
     </NavLink>
 </div>
 

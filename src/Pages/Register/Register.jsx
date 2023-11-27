@@ -23,7 +23,7 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 const Register = () => {
 
 
-    const {createUser} = useContext(AuthContext);
+    const { createUser } = useContext(AuthContext);
     const axios = useAxiosPublic();
 
     const Navigate = useNavigate();
@@ -54,26 +54,26 @@ const Register = () => {
                 updateProfile(auth.currentUser, {
                     displayName: `${name}`, photoURL: `${photo}`
                 })
-                .then(() => {
-                    const userInfo = {
-                        name: name,
-                        email: email,
-                        role: 'user'
-                    }
-                    axios.post('/users', userInfo)
-                    .then(res => {
-                        if(res?.data?.insertedId){
-                            Swal.fire({
-                                position: "center",
-                                icon: "success",
-                                title: "Registration successfully",
-                                showConfirmButton: false,
-                                timer: 1500
-                              });
-                            Navigate("/");
+                    .then(() => {
+                        const userInfo = {
+                            name: name,
+                            email: email,
+                            role: 'user'
                         }
+                        axios.post('/users', userInfo)
+                            .then(res => {
+                                if (res?.data?.insertedId) {
+                                    Swal.fire({
+                                        position: "center",
+                                        icon: "success",
+                                        title: "Registration successfully",
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    Navigate("/");
+                                }
+                            })
                     })
-                })
                 console.log(res.user)
             })
             .catch(err => {
@@ -155,6 +155,7 @@ const Register = () => {
                             </Grid>
                             <Grid item xs={12}>
                                 <FormControlLabel
+                                    required
                                     control={<Checkbox value="allowExtraEmails" color="primary" />}
                                     label="Accept terms & conditions"
                                 />
