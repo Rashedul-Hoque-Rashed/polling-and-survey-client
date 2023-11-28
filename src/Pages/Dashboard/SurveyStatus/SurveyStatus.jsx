@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useState } from "react";
+import { PacmanLoader } from 'react-spinners';
 
 const style = {
     position: 'absolute',
@@ -21,10 +22,12 @@ const style = {
 
 const SurveyStatus = () => {
 
-
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     const axios = useAxios();
 
-    const { data: surveys = [], refetch } = useQuery({
+    const { data: surveys = [], refetch, isLoading } = useQuery({
         queryKey: ['surveys'],
         queryFn: async () => {
             const res = await axios.get('/surveys')
@@ -32,13 +35,19 @@ const SurveyStatus = () => {
         }
     })
 
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    if (isLoading) {
+        return <PacmanLoader
+        color="#016A70"
+        cssOverride={{margin: '200px auto'}}
+        margin={2}
+        size={50}
+    />
+    }
 
-    const handleStatus = (id, status, report) => {
+
+    const handleStatus = (id, status, feedback) => {
         
-                axios.put(`/survey/${id}`, { status, report })
+                axios.put(`/survey/${id}`, { status, feedback })
                     .then(res => {
                         if (res?.data?.modifiedCount > 0) {
                             Swal.fire({
@@ -86,19 +95,19 @@ const SurveyStatus = () => {
                                 {
                                     survey.status === 'pending' && <Grid sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                                         <Button variant="contained" color='success'
-                                            onClick={() => handleStatus(survey._id, 'publish')}>
-                                            Publish
+                                            onClick={() => handleStatus(survey._id, 'published')}>
+                                            Published
                                         </Button>
                                         <Button variant="contained" color='error'
                                            onClick={handleOpen} >
-                                            Unpublish
+                                            Unpublished
                                         </Button>
                                         <Modal
                                 open={open}
                                 onClose={handleClose}
                             >
                                 <Box sx={style}>
-                                    <form className="comment-form" onSubmit={(e) => handleStatus(survey._id, 'unpublish', e.target.feedback.value)}>
+                                    <form className="comment-form" onSubmit={(e) => handleStatus(survey._id, 'unpublished', e.target.feedback.value)}>
                                         <TextField id="outlined-basic"
                                             name="feedback" label="Write your feedback" variant="outlined" sx={{ width: '70%' }} />
                                         <button className="comment" type="submit">Feedback</button>
@@ -108,13 +117,13 @@ const SurveyStatus = () => {
                                     </Grid>
                                 }
                                 {
-                                    survey.status === 'publish' &&
+                                    survey.status === 'published' &&
                                     <Button variant="contained" color='success'>
                                         <CheckCircleIcon />
                                     </Button>
                                 }
                                 {
-                                    survey.status === 'unpublish' &&
+                                    survey.status === 'unpublished' &&
                                     <Button variant="contained" color='error'>
                                         <HighlightOffIcon />
                                     </Button>

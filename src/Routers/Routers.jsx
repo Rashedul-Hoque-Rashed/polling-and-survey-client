@@ -11,6 +11,8 @@ import ManageUsers from "../Pages/Dashboard/ManageUsers/ManageUsers";
 import SurveyStatus from "../Pages/Dashboard/SurveyStatus/SurveyStatus";
 import AllPayments from "../Pages/Dashboard/AllPayments/AllPayments";
 import SurveyResponse from "../Pages/Dashboard/SurveyResponse/SurveyResponse";
+import CreateSurvey from "../Pages/Dashboard/CreateSuevey/CreateSurvey";
+import MySurvey from "../Pages/Dashboard/MySurvey/MySurvey";
 
 
 const router = createBrowserRouter([
@@ -64,6 +66,14 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/surveyResponse',
                 element: <SurveyResponse/>
+            },
+            {
+                path: '/dashboard/createSurvey',
+                element: <CreateSurvey/>
+            },
+            {
+                path: '/dashboard/mySurvey',
+                element: <MySurvey/>
             },
         ]
     }

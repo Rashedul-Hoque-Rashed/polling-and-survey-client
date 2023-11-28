@@ -1,19 +1,29 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../../Hooks/useAxios";
 import { Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { PacmanLoader } from 'react-spinners';
 
 const SurveyResponse = () => {
 
 
     const axios = useAxios();
 
-    const { data: votes = [] } = useQuery({
+    const { data: votes = [], isLoading } = useQuery({
         queryKey: ['votes'],
         queryFn: async () => {
             const res = await axios.get('/votes')
             return res.data
         }
     })
+
+    if (isLoading) {
+        return <PacmanLoader
+        color="#016A70"
+        cssOverride={{margin: '200px auto'}}
+        margin={2}
+        size={50}
+    />
+    }
 
 
     votes.forEach(entry => {
@@ -51,5 +61,6 @@ const SurveyResponse = () => {
         </Table>
     );
 };
+
 
 export default SurveyResponse;

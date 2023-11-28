@@ -8,15 +8,14 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from '../Components/listItems';
 import { Outlet } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import ListItem from '../Components/listItems';
+import { AuthContext } from '../Provider/AuthProvider';
 
 
 const drawerWidth = 240;
@@ -68,11 +67,15 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
+
+
 const Dashboard = () => {
   const [open, setOpen] = useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  const {user} = useContext(AuthContext);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -105,11 +108,12 @@ const Dashboard = () => {
             >
               Dashboard
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+            <Grid sx={{display: 'flex', alignItems: 'center', gap: 2}}>
+              <Typography sx={{fontSize: 16, fontWeight: 600}}>
+                {user?.displayName}
+              </Typography>
+            <img src={user?.photoURL} alt="" className="profile-img" />
+            </Grid>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -127,9 +131,7 @@ const Dashboard = () => {
           </Toolbar>
           <Divider />
           <List component="nav">
-            {mainListItems}
-            <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
+            <ListItem/>
           </List>
         </Drawer>
         <Box

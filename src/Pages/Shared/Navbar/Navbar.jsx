@@ -20,6 +20,9 @@ import styled from '@emotion/styled';
 import { AuthContext } from '../../../Provider/AuthProvider';
 import { useContext } from 'react';
 import Swal from 'sweetalert2';
+import { useState } from 'react';
+import useAxiosPublic from '../../../Hooks/useAxiosPublic';
+import { useEffect } from 'react';
 
 
 
@@ -40,8 +43,28 @@ const LoginButton = styled(Button)({
     }
 });
 
+const Navbar = (props) => {
+    const { user, logOut } = useContext(AuthContext);
+    const Navigate = useNavigate();
+    const { window } = props;
+    const [mobileOpen, setMobileOpen] = React.useState(false);
 
-const navItems = <div id='link'>
+    const axios = useAxiosPublic();
+    const [currentUser, setCurrentUser] = useState([]);
+
+    useEffect(() => {
+        axios.get('/users')
+            .then(res => {
+                setCurrentUser(res.data)
+            })
+    }, [axios])
+
+    const userRole = currentUser.find(role => role?.email === user?.email)
+
+    console.log(userRole)
+
+
+    const navItems = <div id='link'>
     <NavLink
         to="/"
     >
@@ -58,18 +81,14 @@ const navItems = <div id='link'>
         Pro-User
     </NavLink>
     <NavLink
-        to="/dashboard/manageUsers"
+        to={userRole?.role === 'admin' ? "/dashboard/manageUsers" : "/dashboard/createSurvey"}
     >
         Dashboard
     </NavLink>
 </div>
 
 
-const Navbar = (props) => {
-    const { user, logOut } = useContext(AuthContext);
-    const Navigate = useNavigate();
-    const { window } = props;
-    const [mobileOpen, setMobileOpen] = React.useState(false);
+
 
     const handleDrawerToggle = () => {
         setMobileOpen((prevState) => !prevState);

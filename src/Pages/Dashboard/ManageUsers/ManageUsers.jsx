@@ -4,6 +4,7 @@ import { Button, MenuItem, Paper, Select, Table, TableBody, TableCell, TableHead
 import DeleteIcon from '@mui/icons-material/Delete';
 import Swal from 'sweetalert2';
 import { useState } from 'react';
+import { PacmanLoader } from 'react-spinners';
 
 
 const ManageUsers = () => {
@@ -11,7 +12,7 @@ const ManageUsers = () => {
     const [filteredRole, setFilteredRole] = useState('all');
     const axios = useAxios();
 
-    const { data: users = [], refetch } = useQuery({
+    const { data: users = [], refetch, isLoading } = useQuery({
         queryKey: ['users', filteredRole],
         queryFn: async () => {
             let url = '/users';
@@ -23,6 +24,14 @@ const ManageUsers = () => {
         }
     })
 
+    if (isLoading) {
+        return <PacmanLoader
+        color="#016A70"
+        cssOverride={{margin: '200px auto'}}
+        margin={2}
+        size={50}
+    />
+    }
 
 
     const handleRole = (user, role) => {

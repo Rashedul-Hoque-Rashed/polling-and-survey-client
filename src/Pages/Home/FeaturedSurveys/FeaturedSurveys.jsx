@@ -6,19 +6,29 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
+import { PacmanLoader } from 'react-spinners';
 
 const FeaturedSurveys = () => {
 
 
     const axios = useAxiosPublic();
 
-    const {data: surveyData = []} = useQuery({
+    const {data: surveyData = [], isLoading} = useQuery({
         queryKey: ['featuredSurvey'],
         queryFn: async () => {
             const res = await axios.get('/surveys');
             return res.data
         }
     })
+
+    if (isLoading) {
+        return <PacmanLoader
+        color="#016A70"
+        cssOverride={{margin: '200px auto'}}
+        margin={2}
+        size={50}
+    />
+    }
 
     surveyData.forEach(entry => {
         const dateObject = new Date(entry.timestamp);

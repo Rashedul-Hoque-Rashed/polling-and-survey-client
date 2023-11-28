@@ -9,19 +9,29 @@ import Option from '@mui/joy/Option';
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { PacmanLoader } from 'react-spinners';
 
 
 const Survey = () => {
 
     const axios = useAxiosPublic();
 
-    const {data: surveyData = []} = useQuery({
+    const {data: surveyData = [], isLoading} = useQuery({
         queryKey: ['survey'],
         queryFn: async () => {
             const res = await axios.get('/surveys');
             return res.data
         }
     })
+
+    if (isLoading) {
+        return <PacmanLoader
+        color="#016A70"
+        cssOverride={{margin: '200px auto'}}
+        margin={2}
+        size={50}
+    />
+    }
 
     surveyData.forEach(entry => {
         const dateObject = new Date(entry.timestamp);

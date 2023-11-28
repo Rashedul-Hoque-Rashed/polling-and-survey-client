@@ -47,12 +47,12 @@ const SurveyDetails = () => {
     survey.timestamp = formattedTimestamp;
 
 
-    const { title, description, options, like, dislike, category, timestamp } = survey
+    const { title, description, options, likes, dislikes, category, timestamp } = survey
 
 
     const [selectedValue, setSelectedValue] = useState('');
-    const [likes, setLikes] = useState(like);
-    const [dislikes, setDislikes] = useState(dislike);
+    const [like, setLike] = useState(likes);
+    const [dislike, setDislike] = useState(dislikes);
     const [userHasLike, setUserHasLike] = useState(false);
     const [userHasDislike, setUserHasDislike] = useState(false);
     const [comments, setComments] = useState([]);
@@ -66,9 +66,9 @@ const SurveyDetails = () => {
 
     const handleLike = () => {
         if (userHasLike) {
-            setLikes(likes - 1);
+            setLike(like - 1);
         } else {
-            setLikes(likes + 1);
+            setLike(like + 1);
         }
 
         setUserHasLike(!userHasLike);
@@ -76,9 +76,9 @@ const SurveyDetails = () => {
 
     const handleDislike = () => {
         if (userHasDislike) {
-            setDislikes(dislikes - 1);
+            setDislike(dislike - 1);
         } else {
-            setDislikes(dislikes + 1);
+            setDislike(dislike + 1);
         }
 
         setUserHasDislike(!userHasDislike);
@@ -95,7 +95,6 @@ const SurveyDetails = () => {
     const handleVote = async (e) => {
         e.preventDefault();
         const yes = e.target.yes.checked;
-        const no = e.target.no.checked;
         const voteData = {
             name: user.displayName,
             email: user.email,
@@ -185,14 +184,14 @@ const SurveyDetails = () => {
                             color="primary"
                             startIcon={<ThumbUpIcon />}
                         >
-                            Like ({likes})
+                            Like ({like})
                         </Button>
                         <Button onClick={handleDislike}
                             sx={{ fontWeight: userHasDislike ? 'bold' : 'normal', textTransform: 'none' }}
                             color="error"
                             startIcon={<ThumbDownIcon />}
                         >
-                            Dislike ({dislikes})
+                            Dislike ({dislike})
                         </Button>
                     </Grid>
                     <Grid sx={{ mt: 1.5 }}>

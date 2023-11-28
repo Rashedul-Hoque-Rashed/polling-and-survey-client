@@ -1,19 +1,29 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../../Hooks/useAxios";
 import { Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { PacmanLoader } from 'react-spinners';
 
 
 const AllPayments = () => {
 
     const axios = useAxios();
 
-    const { data: payments = [] } = useQuery({
+    const { data: payments = [], isLoading } = useQuery({
         queryKey: ['payments'],
         queryFn: async () => {
             const res = await axios.get('/payments')
             return res.data
         }
     })
+
+    if (isLoading) {
+        return <PacmanLoader
+        color="#016A70"
+        cssOverride={{margin: '200px auto'}}
+        margin={2}
+        size={50}
+    />
+    }
 
     payments.forEach(entry => {
         const dateObject = new Date(entry.date);

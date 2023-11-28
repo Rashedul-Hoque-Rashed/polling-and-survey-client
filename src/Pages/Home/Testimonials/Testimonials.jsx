@@ -10,12 +10,13 @@ import { BsQuote } from 'react-icons/bs';
 import './Testimonials.css'
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
+import { PacmanLoader } from 'react-spinners';
 
 const Testimonials = () => {
 
     const axios = useAxiosPublic();
 
-    const {data: reviews = []} = useQuery({
+    const {data: reviews = [], isLoading} = useQuery({
         queryKey: ['review'],
         queryFn: async () => {
             const res = await axios.get('/reviews');
@@ -23,6 +24,14 @@ const Testimonials = () => {
         }
     })
 
+    if (isLoading) {
+        return <PacmanLoader
+        color="#016A70"
+        cssOverride={{margin: '200px auto'}}
+        margin={2}
+        size={50}
+    />
+    }
 
     return (
         <Container maxWidth='xl' sx={{ pb: 12 }}>
