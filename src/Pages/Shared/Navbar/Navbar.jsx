@@ -78,12 +78,24 @@ const Navbar = (props) => {
     <NavLink
         to="/proUser"
     >
-        Pro-User
+        Pro User
+    </NavLink>
+    <NavLink
+        to="/aboutUs"
+    >
+        About Us
+    </NavLink>
+    <NavLink
+        to="/contactUs"
+    >
+        Contact Us
     </NavLink>
     <NavLink
         to={userRole?.role === 'admin' ? "/dashboard/manageUsers" : "/dashboard/createSurvey"}
-    >
-        Dashboard
+    >{
+        userRole?.role === 'admin' || userRole?.role === 'surveyor' &&
+        'Dashboard'
+        }
     </NavLink>
 </div>
 

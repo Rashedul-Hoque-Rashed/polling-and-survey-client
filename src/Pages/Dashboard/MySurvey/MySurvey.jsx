@@ -103,7 +103,7 @@ const MySurvey = () => {
                                         </Typography>
                                     </Grid>
                                     <Grid sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                                        <Link to={`/update/${item._id}`}>
+                                        <Link to={`/dashboard/mySurvey/update/${item._id}`}>
                                         <Button
                                             variant="contained" color='success'
                                             startIcon={<UpdateIcon />}

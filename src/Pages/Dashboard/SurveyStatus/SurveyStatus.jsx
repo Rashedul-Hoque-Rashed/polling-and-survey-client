@@ -107,7 +107,8 @@ const SurveyStatus = () => {
                                 onClose={handleClose}
                             >
                                 <Box sx={style}>
-                                    <form className="comment-form" onSubmit={(e) => handleStatus(survey._id, 'unpublished', e.target.feedback.value)}>
+                                    <form className="comment-form" onSubmit={(e) => { e.preventDefault()
+                                        handleStatus(survey._id, 'unpublished', e.target.feedback.value)}}>
                                         <TextField id="outlined-basic"
                                             name="feedback" label="Write your feedback" variant="outlined" sx={{ width: '70%' }} />
                                         <button className="comment" type="submit">Feedback</button>
