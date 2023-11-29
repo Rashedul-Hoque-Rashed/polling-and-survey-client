@@ -61,41 +61,51 @@ const Navbar = (props) => {
 
     const userRole = currentUser.find(role => role?.email === user?.email)
 
-    console.log(userRole)
 
 
     const navItems = <div id='link'>
-    <NavLink
-        to="/"
-    >
-        Home
-    </NavLink>
-    <NavLink
-        to="/survey"
-    >
-        Survey
-    </NavLink>
-    <NavLink
-        to="/proUser"
-    >
-        Pro User
-    </NavLink>
-    <NavLink
-        to="/aboutUs"
-    >
-        About Us
-    </NavLink>
-    <NavLink
-        to="/contactUs"
-    >
-        Contact Us
-    </NavLink>
-    <NavLink
-        to={userRole?.role === 'admin' ? "/dashboard/manageUsers" : "/dashboard/createSurvey"}
-    >
-        Dashboard
-    </NavLink>
-</div>
+        <NavLink
+            to="/"
+        >
+            Home
+        </NavLink>
+        <NavLink
+            to="/survey"
+        >
+            Survey
+        </NavLink>
+        <NavLink
+            to="/proUser"
+        >
+            Pro User
+        </NavLink>
+        <NavLink
+            to="/aboutUs"
+        >
+            About Us
+        </NavLink>
+        <NavLink
+            to="/contactUs"
+        >
+            Contact Us
+        </NavLink>
+        {
+            userRole?.role === 'admin' &&
+            <NavLink
+            to="/dashboard/manageUsers"
+        >
+            Dashboard
+        </NavLink>
+        }
+        {
+            userRole?.role === 'surveyor' &&
+            <NavLink
+            to="/dashboard/createSurvey"
+        >
+            Dashboard
+        </NavLink>
+        }
+    </div>
 
 
 

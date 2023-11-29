@@ -16,13 +16,15 @@ const Survey = () => {
 
     const axios = useAxiosPublic();
 
-    const {data: surveyData = [], isLoading} = useQuery({
+    const {data: surveysData = [], isLoading} = useQuery({
         queryKey: ['survey'],
         queryFn: async () => {
             const res = await axios.get('/surveys');
             return res.data
         }
     })
+
+    const surveyData = surveysData.filter(data => data.status === 'published')
 
     if (isLoading) {
         return <PacmanLoader

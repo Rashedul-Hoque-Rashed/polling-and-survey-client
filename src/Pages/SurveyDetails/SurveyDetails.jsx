@@ -12,6 +12,7 @@ import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
 import { PacmanLoader } from 'react-spinners';
 import ProgressBar from "@ramonak/react-progress-bar";
+import moment from "moment/moment";
 
 
 const style = {
@@ -40,7 +41,25 @@ const SurveyDetails = () => {
 
 
 
-    const { _id, title, description, options, category, timestamp } = survey
+    const { _id, title, description, options, category, timestamp, deadline } = survey
+
+
+    const now = moment();
+    const surveyDeadline = moment(deadline);
+    const timeRemaining = surveyDeadline.diff(now);
+ 
+    let deadlineStatus = ''
+    
+    if (timeRemaining > 0) {
+        const duration = moment.duration(timeRemaining);
+        const days = duration.days();
+        const hours = duration.hours();
+        const minutes = duration.minutes();
+      
+        deadlineStatus = `Survey closes in ${days} days, ${hours} hours and ${minutes} minutes.`;
+      } else {
+        deadlineStatus = 'Survey has expired.';
+      }
 
 
     useEffect(() => {
@@ -157,7 +176,7 @@ const SurveyDetails = () => {
             email: user.email,
             surveyId: survey._id,
             vote: yes ? "yes" : "no",
-            time: new Date,
+            time: new Date(),
         }
 
         const vote = await axios.post('/votes', voteData)
@@ -238,9 +257,14 @@ const SurveyDetails = () => {
                 <Grid item xs={12} sm={8}>
                     <Card sx={{ minWidth: 275, cursor: 'pointer' }}>
                         <CardContent>
+                            <Grid sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
                             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                 {category}
                             </Typography>
+                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                {deadlineStatus}
+                            </Typography>
+                            </Grid>
                             <Typography variant="h5" component="div">
                                 {title}
                             </Typography>
@@ -282,7 +306,7 @@ const SurveyDetails = () => {
                                             value="no"
                                             slotProps={{ input: { 'aria-label': 'No' } }} />
                                         <Button type="submit" variant="contained"
-                                            disabled={(userRole?.role !== 'pro-user') && (userRole?.role !== 'user')}>
+                                            disabled={(userRole?.role !== 'pro-user') && (userRole?.role !== 'user') || (deadlineStatus === 'Survey has expired.')}>
                                             submit
                                         </Button>
                                     </Form>
@@ -357,7 +381,7 @@ const SurveyDetails = () => {
                 </Grid>
                 <Grid item xs={12} sm={4} sx={{ my: 2 }}>
                     {
-                        getVote && <Grid>
+                        getVote || deadlineStatus === 'Survey has expired.' && <Grid>
                             <Typography sx={{ fontSize: '16px', fontWeight: 700, mb: 2 }}>
                                 Total vote: {options.yes + options.no}
                             </Typography>

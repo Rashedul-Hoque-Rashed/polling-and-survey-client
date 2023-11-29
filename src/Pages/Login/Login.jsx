@@ -33,7 +33,7 @@ const Login = () => {
 
     const { login, googleLogin } = useContext(AuthContext);
     const axios = useAxiosPublic();
-    const location = useLocation();
+    const locationRendering = useLocation();
     const Navigate = useNavigate();
 
     const handelLogin = (e) => {
@@ -51,8 +51,8 @@ const Login = () => {
                     showConfirmButton: false,
                     timer: 2500
                 })
-                Navigate(location?.state ? location.state : "/");
-
+                Navigate(locationRendering?.state ? locationRendering.state : "/");
+                location.reload();
             })
             .catch(err => {
                 Swal.fire({
@@ -73,9 +73,9 @@ const Login = () => {
                     role: 'user'
                 }
                 axios.post('/users', userInfo)
-                .then(res => {
-                    console.log(res.data)
-                })
+                    .then(res => {
+                        console.log(res.data)
+                    })
                 Swal.fire({
                     position: "center",
                     icon: "success",
@@ -84,6 +84,7 @@ const Login = () => {
                     timer: 1500
                 });
                 Navigate("/");
+                location.reload();
             })
     }
 
@@ -140,7 +141,7 @@ const Login = () => {
                         >
                             Sign In
                         </Button>
-                        <Grid item sx={{mb: 3}}>
+                        <Grid item sx={{ mb: 3 }}>
                             <Link href="/register" variant="body2">
                                 {"Don't have an account? Sign Up"}
                             </Link>
@@ -152,7 +153,7 @@ const Login = () => {
                         </Divider>
                     </Root>
                     <Button
-                    onClick={handleGoogleLogin}
+                        onClick={handleGoogleLogin}
                         fullWidth
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
