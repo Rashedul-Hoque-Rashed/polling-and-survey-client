@@ -79,7 +79,11 @@ const Update = () => {
     const surveyInfo = {
       title: title,
       description: description,
-      category: category
+      category: category,
+      options: {
+        yes: survey.options.yes,
+        no: survey.options.no,
+      }
     }
 
     const updateSurvey = await axios.patch(`/surveys/${survey._id}`, surveyInfo)

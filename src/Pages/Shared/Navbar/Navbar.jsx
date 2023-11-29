@@ -92,10 +92,8 @@ const Navbar = (props) => {
     </NavLink>
     <NavLink
         to={userRole?.role === 'admin' ? "/dashboard/manageUsers" : "/dashboard/createSurvey"}
-    >{
-        userRole?.role === 'admin' || userRole?.role === 'surveyor' &&
-        'Dashboard'
-        }
+    >
+        Dashboard
     </NavLink>
 </div>
 

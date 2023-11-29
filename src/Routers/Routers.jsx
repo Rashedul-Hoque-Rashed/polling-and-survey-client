@@ -16,8 +16,8 @@ import MySurvey from "../Pages/Dashboard/MySurvey/MySurvey";
 import Update from "../Pages/Dashboard/Update/Update";
 import Feedback from "../Pages/Dashboard/Feedback/Feedback";
 import PrivateRouter from "./PrivateRouter";
-import AdminRouter from "./AdminRouter";
-import SurveyorRouter from "./SurveyorRouter";
+import ContactUs from "../Pages/ContactUs/ContactUs";
+import AboutUs from "../Pages/AboutUs/AboutUs";
 
 
 const router = createBrowserRouter([
@@ -50,6 +50,14 @@ const router = createBrowserRouter([
                 path: '/register',
                 element: <Register />
             },
+            {
+                path: '/contactUs',
+                element: <ContactUs />
+            },
+            {
+                path: '/aboutUs',
+                element: <AboutUs />
+            },
         ],
     },
     {
@@ -58,15 +66,15 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/dashboard/manageUsers',
-                element: <AdminRouter><ManageUsers /></AdminRouter>
+                element: <ManageUsers />
             },
             {
                 path: '/dashboard/surveyStatus',
-                element: <AdminRouter><SurveyStatus /></AdminRouter>
+                element: <SurveyStatus />
             },
             {
                 path: '/dashboard/allPayments',
-                element: <AdminRouter><AllPayments /></AdminRouter>
+                element: <AllPayments />
             },
             {
                 path: '/dashboard/surveyResponse',
@@ -74,20 +82,20 @@ const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/createSurvey',
-                element: <SurveyorRouter><CreateSurvey /></SurveyorRouter>
+                element: <CreateSurvey />
             },
             {
                 path: '/dashboard/mySurvey',
-                element: <SurveyorRouter><MySurvey /></SurveyorRouter>
+                element: <MySurvey />
             },
             {
                 path: '/dashboard/mySurvey/update/:id',
-                element: <SurveyorRouter><Update /></SurveyorRouter>,
+                element: <Update />,
                 loader: ({ params }) => fetch(`http://localhost:5000/surveys/${params.id}`)
             },
             {
                 path: '/dashboard/feedback',
-                element: <SurveyorRouter><Feedback /></SurveyorRouter>
+                element: <Feedback />
             },
         ]
     }
