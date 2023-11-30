@@ -18,12 +18,14 @@ import Feedback from "../Pages/Dashboard/Feedback/Feedback";
 import PrivateRouter from "./PrivateRouter";
 import ContactUs from "../Pages/ContactUs/ContactUs";
 import AboutUs from "../Pages/AboutUs/AboutUs";
+import Error from "../Pages/Error/Error";
 
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Main />,
+        errorElement: <Error/>,
         children: [
             {
                 path: '/',
@@ -63,6 +65,7 @@ const router = createBrowserRouter([
     {
         path: "/dashboard",
         element: <PrivateRouter><Dashboard /></PrivateRouter>,
+        errorElement: <Error/>,
         children: [
             {
                 path: '/dashboard/manageUsers',
