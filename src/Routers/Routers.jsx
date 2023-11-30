@@ -42,7 +42,7 @@ const router = createBrowserRouter([
             {
                 path: '/details/:id',
                 element: <SurveyDetails />,
-                loader: ({ params }) => fetch(`http://localhost:5000/surveys/${params.id}`)
+                loader: ({ params }) => fetch(`https://b8a12-server-side-rashedul-hoque-rashed.vercel.app/surveys/${params.id}`)
             },
             {
                 path: '/login',
@@ -94,7 +94,7 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/mySurvey/update/:id',
                 element: <Update />,
-                loader: ({ params }) => fetch(`http://localhost:5000/surveys/${params.id}`)
+                loader: ({ params }) => fetch(`https://b8a12-server-side-rashedul-hoque-rashed.vercel.app/surveys/${params.id}`)
             },
             {
                 path: '/dashboard/feedback',
