@@ -47,19 +47,19 @@ const SurveyDetails = () => {
     const now = moment();
     const surveyDeadline = moment(deadline);
     const timeRemaining = surveyDeadline.diff(now);
- 
+
     let deadlineStatus = ''
-    
+
     if (timeRemaining > 0) {
         const duration = moment.duration(timeRemaining);
         const days = duration.days();
         const hours = duration.hours();
         const minutes = duration.minutes();
-      
+
         deadlineStatus = `Survey closes in ${days} days, ${hours} hours and ${minutes} minutes.`;
-      } else {
+    } else {
         deadlineStatus = 'Survey has expired.';
-      }
+    }
 
 
     useEffect(() => {
@@ -257,13 +257,13 @@ const SurveyDetails = () => {
                 <Grid item xs={12} sm={8}>
                     <Card sx={{ minWidth: 275, cursor: 'pointer' }}>
                         <CardContent>
-                            <Grid sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                {category}
-                            </Typography>
-                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                {deadlineStatus}
-                            </Typography>
+                            <Grid sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                    {category}
+                                </Typography>
+                                <Typography sx={{ fontSize: 14 }} color={`${deadlineStatus === 'Survey has expired.' ? 'red' : 'blue'}`} gutterBottom>
+                                    {deadlineStatus}
+                                </Typography>
                             </Grid>
                             <Typography variant="h5" component="div">
                                 {title}
