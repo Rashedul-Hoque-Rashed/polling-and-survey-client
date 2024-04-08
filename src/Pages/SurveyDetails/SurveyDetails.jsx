@@ -92,7 +92,7 @@ const SurveyDetails = () => {
         }
     })
 
-    const getVote = votes.find(vote => vote.surveyId === _id && vote.email === user?.email)
+    const getVote = votes.find(vote => vote?.surveyId === _id && vote?.email === user?.email)
 
     console.log(getVote)
 
@@ -172,9 +172,9 @@ const SurveyDetails = () => {
         e.preventDefault();
         const yes = e.target.yes.checked;
         const voteData = {
-            name: user.displayName,
-            email: user.email,
-            surveyId: survey._id,
+            name: user?.displayName,
+            email: user?.email,
+            surveyId: survey?._id,
             vote: yes ? "yes" : "no",
             time: new Date(),
         }
@@ -191,7 +191,7 @@ const SurveyDetails = () => {
             refetch();
             location.reload()
             let updateData = {}
-            if (voteData.vote !== 'yes') {
+            if (voteData?.vote !== 'yes') {
                 updateData = {
                     title: title,
                     category: category,
@@ -280,7 +280,7 @@ const SurveyDetails = () => {
                                     Total vote:
                                 </Typography>
                                 <Typography sx={{ fontSize: '16px', fontWeight: 600 }}>
-                                    {options.yes + options.no}
+                                    {options?.yes + options?.no}
                                 </Typography>
                             </Grid>
                             <Grid sx={{ mt: 1.5, display: "flex", alignItems: 'center', gap: '4px' }}>
